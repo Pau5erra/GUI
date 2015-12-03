@@ -68,6 +68,12 @@ const SDL_Texture* j1Gui::GetAtlas() const
 }
 
 // class Gui ---------------------------------------------------
+UIImage::UIImage(SDL_Texture* new_texture, SDL_Rect rect, iPoint position)
+{
+	image = new_texture;
+	getRect = rect;
+	this->position = position;
+}
 
 UIImage* j1Gui::addImage(p2SString name, iPoint position,  SDL_Rect section){
 	UIImage* new_image = new UIImage(atlas, section, position);
@@ -96,24 +102,30 @@ bool UIImage::Draw(){
 
 }
 
+	UIText::UIText(char* text, iPoint position){
+
+		text_texture = App->font->Print(text);
+		this->position = position;
+
+		};
+
 UIText* j1Gui::addText(p2SString name, char* text, iPoint position){
-	UIText* new_text = new UIText(text);
-	new_text->position = position;
+	UIText* new_text = new UIText(text, position);
+	
 	list_elements.add(new_text);
 
 	return new_text;
 }
 
-	UIText::UIText(char* text){
-
-		text_texture = App->font->Print(text);
-
-		};
-
 	bool UIText::Draw(){
 		App->render->Blit(text_texture, position.x, position.y);
 
 		return true;
+	}
+
+	UIButton::UIButton(UIImage* image, UIText* text){
+		this->image = image;
+		this->text = text;
 	}
 
 /*UIButton* j1Gui::addButton(p2SString name, UIImage image, UIText text){

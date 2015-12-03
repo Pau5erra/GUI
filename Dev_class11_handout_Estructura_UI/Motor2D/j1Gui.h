@@ -34,19 +34,7 @@ public:
 	virtual bool Draw(){ return true; }
 };
 
-class UIText : public UIElement
-{
-public:
-	SDL_Texture* text_texture;
 
-public:
-	UIText(char* text);
-
-	~UIText(){}
-
-	bool Draw();
-
-};
 
 class UIImage : public UIElement
 {
@@ -55,13 +43,23 @@ public:
 	SDL_Rect getRect;
 
 public:
-	UIImage(SDL_Texture* new_texture, SDL_Rect rect, iPoint position)
-	{
-		image = new_texture;
-		getRect = rect;
-		this->position = position;
-	}
+	UIImage(SDL_Texture* new_texture, SDL_Rect rect, iPoint position);
+
 	~UIImage(){}
+
+	bool Draw();
+
+};
+
+class UIText : public UIElement
+{
+public:
+	SDL_Texture* text_texture;
+
+public:
+	UIText(char* text, iPoint position);
+
+	~UIText(){}
 
 	bool Draw();
 
@@ -70,13 +68,12 @@ public:
 class UIButton : public UIElement
 {
 public:
-	UIImage image;
-	UIText text;
+	UIImage* image;
+	UIText* text;
+	j1Module* listener;
 
 public:
-	UIButton(UIImage image){
-		this->image = image;
-	}
+	UIButton(UIImage* image, UIText* text);
 	~UIButton(){}
 
 	bool Update();
