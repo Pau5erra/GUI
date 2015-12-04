@@ -43,7 +43,7 @@ public:
 	SDL_Rect getRect;
 
 public:
-	UIImage(SDL_Texture* new_texture, SDL_Rect rect, iPoint position);
+	UIImage();
 
 	~UIImage(){}
 
@@ -57,7 +57,7 @@ public:
 	SDL_Texture* text_texture;
 
 public:
-	UIText(char* text, iPoint position);
+	UIText();
 
 	~UIText(){}
 
@@ -76,7 +76,7 @@ public:
 	UIButton(UIImage* image, UIText* text);
 	~UIButton(){}
 
-	bool Update();
+	bool Update(){ return true; };
 };
 /*
 class UIInput : public UIElement
